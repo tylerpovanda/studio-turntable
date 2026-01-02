@@ -268,12 +268,6 @@ if (windowHeight < 760) {
   };
 
   const titleHeight = 80; // height of your app title
-  const releaseCardTop =
-    windowHeight >= 900
-      ? 0
-      : windowHeight >= 760 && windowHeight < 900
-      ? titleHeight
-      : 0;
 
   return (
     <div
@@ -307,7 +301,7 @@ if (windowHeight < 760) {
         >
           {/* Album Artwork */}
           <div
-            className="relative flex-shrink-0 z-30"
+            className="relative shrink-0 z-30"
             style={{ width: jacketSize, height: jacketSize }}
           >
             <div className="absolute w-full h-full top-0 left-0 bg-black rounded-lg z-20 select-none" />
@@ -404,7 +398,7 @@ if (windowHeight < 760) {
         </motion.div>
 
         {/* Spotify Embed */}
-        <div className="relative w-[300px] h-[80px] mt-4 flex justify-center">
+        <div className="relative w-75 h-20 mt-4 flex justify-center">
           {oldRelease?.spotifyUrl && (
             <motion.iframe
               key={oldRelease.spotifyUrl}
@@ -442,8 +436,8 @@ if (windowHeight < 760) {
               px-4 py-2
               bg-gray-500 text-white text-xl font-jacquard rounded
               transition
-              hover:bg-gray-400 hover:-translate-y-[1px]
-              active:bg-gray-600 active:translate-y-[1px]
+              hover:bg-gray-400 hover:-translate-y-px
+              active:bg-gray-600 active:translate-y-px
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400"
             onClick={() => handlePrev(true)}
           >
@@ -454,8 +448,8 @@ if (windowHeight < 760) {
               px-4 py-2
               bg-gray-500 text-white text-xl font-jacquard rounded
               transition
-              hover:bg-gray-400 hover:-translate-y-[1px]
-              active:bg-gray-600 active:translate-y-[1px]
+              hover:bg-gray-400 hover:-translate-y-px
+              active:bg-gray-600 active:translate-y-px
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400"
             onClick={() => handleNext(true)}
           >
