@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap');
+@import "tailwindcss";
+
+/* Create a utility class for the font */
+.font-jacquard {
+  font-family: 'Jacquard 12', serif;
+}

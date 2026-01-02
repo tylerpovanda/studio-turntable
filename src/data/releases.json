@@ -1,0 +1,82 @@
+[
+  {
+    "artist": "Heart Attack Man",
+    "title": "Laughing Without Smiling",
+    "year": 2025,
+    "role": "Composer",
+    "artworkUrl": "/assets/joyride.jpeg",
+    "spotifyUrl": "https://open.spotify.com/track/6S4C4Ox4zbUlWLwGcdQTRC"
+  },
+  {
+    "artist": "Mom Jeans.",
+    "title": "Sweet Tooth",
+    "year": 2022,
+    "role": "Vocal Prod. / Add. Vocals",
+    "artworkUrl": "/assets/sweettooth.jpg",
+    "spotifyUrl": "https://open.spotify.com/track/1R51iBhpHoWjl3dEXdRpSy"
+  },
+  {
+    "artist": "Save Face",
+    "title": "Another Kill",
+    "year": 2021,
+    "role": "Composer / Engineer",
+    "artworkUrl": "/assets/ak4thr.jpeg",
+    "spotifyUrl": "https://open.spotify.com/track/07dkcM8GFujfNseBvVWs2P"
+  },
+  {
+    "artist": "Jhariah",
+    "title": "Trust Ceremony",
+    "year": 2024,
+    "role": "Editing",
+    "artworkUrl": "/assets/trustceremony.jpg",
+    "spotifyUrl": "https://open.spotify.com/track/4rw3XsjKI27B5PBIyrbS8x"
+  },
+  {
+    "artist": "Save Face",
+    "title": "Found Dead EP",
+    "year": 2023,
+    "role": "Composer / Engineer",
+    "artworkUrl": "/assets/founddead.jpeg",
+    "spotifyUrl": "https://open.spotify.com/track/0QuHvqmX2sUBi6Gx5HY5w8"
+  },
+  {
+    "artist": "Kid Lightning",
+    "title": "Kid Lightning",
+    "year": 2023,
+    "role": "Composer / Engineer",
+    "artworkUrl": "/assets/kidlightning.jpg",
+    "spotifyUrl": "https://open.spotify.com/track/4RxAJIzMxAx4mDYNSXvDAr"
+  },
+  {
+    "artist": "Kiki",
+    "title": "Not Right Now EP",
+    "year": 2024,
+    "role": "Mixing",
+    "artworkUrl": "/assets/notrightnow.jpeg",
+    "spotifyUrl": "https://open.spotify.com/track/4P4M5eeMY2bXV0vIhG0MGG"
+  },
+  {
+    "artist": "Save Face",
+    "title": "Merci",
+    "year": 2018,
+    "role": "Composer / Engineer",
+    "artworkUrl": "/assets/merci.jpg",
+    "spotifyUrl": "https://open.spotify.com/track/33GR2kyfD9mxgxKum5r7UV"
+  },
+  {
+    "artist": "Save Face",
+    "title": "Folly",
+    "year": 2016,
+    "role": "Composer / Engineer",
+    "artworkUrl": "/assets/folly.jpg",
+    "spotifyUrl": "https://open.spotify.com/track/4EhIPQdwOwQp3I2i9tPrIM"
+  },
+  {
+    "artist": "ESM",
+    "title": "ESM",
+    "year": 2023,
+    "role": "Composer / Engineer / Mixing",
+    "artworkUrl": "/assets/esm.jpeg",
+    "spotifyUrl": "https://open.spotify.com/track/6nOOZ0nnux2NMN8r3y7rWR"
+  }
+]
