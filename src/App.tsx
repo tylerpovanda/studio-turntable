@@ -1,4 +1,3 @@
-import React from "react";
 import ReleaseCard from "./components/ReleaseCard";
 import releases from "./data/releases.json";
 import Footer from "./components/Footer";

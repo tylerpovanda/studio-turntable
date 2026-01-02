@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, animate } from "framer-motion";
 import vinylImg from "../assets/vinyl.png";
 
@@ -29,7 +29,7 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 
   const [contentScale, setContentScale] = useState(1);
   const [contentShiftX, setContentShiftX] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile] = useState(window.innerWidth < 768); // or calculate dynamically in effect
   const mobileHorizontalOffset = -40;
 
   // 🔊 Scratch sounds
@@ -43,9 +43,9 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
   // 📏 Window height
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-  const updateContentScale = () => {
+  // Wrap in useCallback and include all external dependencies
+  const updateContentScale = useCallback(() => {
     const mobile = window.innerWidth < 768;
-    setIsMobile(mobile);
 
     const jacketSize = mobile ? 220 : 320;
     const vinylSize = mobile ? 160 : 256;
@@ -55,35 +55,59 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
     const totalContentWidth = jacketSize + vinylSize / 2 + textWidth + margin;
     const maxWidth = window.innerWidth - 32;
     const scale = Math.min(1, maxWidth / totalContentWidth);
+
     setContentScale(scale);
 
     const extraSpace = maxWidth - totalContentWidth * scale;
     const mobileShift = Math.min(0, extraSpace / 2 + mobileHorizontalOffset);
     setContentShiftX(mobile ? mobileShift : 0);
-  };
+  }, [mobileHorizontalOffset]); // ✅ include mobileHorizontalOffset
 
+  // Safe effect
   useEffect(() => {
-    updateContentScale();
+    // Wrap the state-updating call in requestAnimationFrame
+    const frame = requestAnimationFrame(() => updateContentScale());
+
     const handleResize = () => {
-      updateContentScale();
+      requestAnimationFrame(() => updateContentScale());
       setWindowHeight(window.innerHeight);
     };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [updateContentScale]); // ✅ include updateContentScale
+
+  useEffect(() => {
+    // call once safely
+    const frame = requestAnimationFrame(() => updateContentScale());
+
+    // resize handler
+    const handleResize = () => {
+        requestAnimationFrame(() => updateContentScale());
+        setWindowHeight(window.innerHeight);
+    };
+
     window.addEventListener("resize", handleResize);
 
-    // Load scratch sounds
+    // load audio once
     scratchCWRef.current = new Audio("/sounds/scratch1.wav");
     scratchCCWRef.current = new Audio("/sounds/scratch2.wav");
     scratchCWRef.current.volume = 0.5;
     scratchCCWRef.current.volume = 0.5;
 
-    // Spin sounds (buttons only)
     spinNextRef.current = new Audio("/sounds/spin1.wav");
     spinPrevRef.current = new Audio("/sounds/spin2.wav");
     spinNextRef.current.volume = 0.5;
     spinPrevRef.current.volume = 0.5;
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    return () => {
+        cancelAnimationFrame(frame);
+        window.removeEventListener("resize", handleResize);
+    };
+  }, [updateContentScale]);
 
   if (!releases || releases.length === 0) return <div>No releases available</div>;
 
