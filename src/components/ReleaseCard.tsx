@@ -257,7 +257,7 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 
   const titleHeight = 80; // your app title
 
-  const vh = parseFloat(
+  const vh = parseFloat( 
   getComputedStyle(document.documentElement).getPropertyValue("--vh")
 ) * 100;
 
