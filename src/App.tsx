@@ -140,21 +140,17 @@ function App() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-white flex flex-col">
+    <div className="flex flex-col min-h-screen w-full bg-white">
+
+  {/* Title */}
   <Title />
 
-  {/* Desktop: flex layout */}
-  <div className="hidden md:flex-1 md:flex md:flex-col md:justify-center md:items-center">
+  {/* Release Card */}
+  <div className="flex-1 flex flex-col justify-center items-center px-4">
     <ReleaseCard releases={releases} />
   </div>
 
-  {/* Mobile: absolute vertical centering */}
-  <div className="md:hidden relative w-full">
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center">
-      <ReleaseCard releases={releases} />
-    </div>
-  </div>
-
+  {/* Footer */}
   <Footer />
 </div>
 
