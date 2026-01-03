@@ -315,12 +315,7 @@ if(isDesktop && windowHeight < 720) {
       {/* Release card wrapper */}
       <div
         className="flex flex-col items-center"
-        style={{
-          marginTop:
-            windowHeight >= 720 && windowHeight < 900
-              ? (windowHeight - titleHeight) / 2 - jacketSize / 2
-              : 0,
-        }}
+
       >
         {/* SCALE EVERYTHING */}
         <motion.div
