@@ -120,7 +120,6 @@
 // }
 
 // export default App;
-
 import { useState, useEffect } from "react";
 import ReleaseCard from "./components/ReleaseCard";
 import releases from "./data/releases.json";
@@ -151,34 +150,40 @@ function App() {
     return () => window.removeEventListener("resize", setVh);
   }, []);
 
+  if (isMobile) {
+    // MOBILE: flex column, title top, release card middle, footer bottom
+    return (
+      <div
+        className="flex flex-col min-h-screen bg-white w-full px-4"
+        style={{ height: "calc(var(--vh, 1vh) * 100)" }}
+      >
+        <Title />
+        <div className="flex flex-col justify-center flex-1 items-center">
+          <ReleaseCard releases={releases} />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // DESKTOP: centered between title and footer
   return (
     <div
-      className="flex flex-col min-h-screen bg-white w-full overflow-x-hidden"
-      style={{ overflowY: "scroll" }}
+      className="flex flex-col min-h-screen bg-white w-full px-4"
+      style={{
+        minHeight: `calc(var(--vh, 1vh) * 100)`,
+      }}
     >
-      {/* Title */}
       <Title />
-
-      {/* Main content wrapper */}
-      {isMobile ? (
-        // MOBILE: simple flow layout
-        <div className="flex flex-col items-center justify-center px-4 flex-1">
-          <ReleaseCard releases={releases} />
-        </div>
-      ) : (
-        // DESKTOP: centered between title and footer
-        <div
-          className="flex flex-col items-center px-4"
-          style={{
-            minHeight: `calc(var(--vh, 1vh) * 100 - 80px - 80px)`, // subtract title + footer height
-            justifyContent: "center",
-          }}
-        >
-          <ReleaseCard releases={releases} />
-        </div>
-      )}
-
-      {/* Footer */}
+      <div
+        className="flex flex-col items-center"
+        style={{
+          minHeight: `calc(var(--vh, 1vh) * 100 - 80px - 80px)`, // subtract title + footer height
+          justifyContent: "center",
+        }}
+      >
+        <ReleaseCard releases={releases} />
+      </div>
       <Footer />
     </div>
   );
