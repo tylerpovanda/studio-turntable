@@ -100,11 +100,11 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen">
       <Title />
-<div className="w-full flex-1 md:flex md:items-center md:justify-center md:py-4">
-  <div className="md:-translate-y-20">
-    <ReleaseCard releases={releases} />
-  </div>
-</div>
+      <div className="w-full flex-1 md:flex md:items-center md:justify-center md:py-4">
+        <div className="md:-translate-y-20">
+          <ReleaseCard releases={releases} />
+        </div>
+      </div>
 
       <Footer />
     </div>
