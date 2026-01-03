@@ -37,7 +37,10 @@ function App() {
       </div>
 
       {/* Release Card centered in viewport */}
-      <div className="flex items-center justify-center min-h-screen">
+      <div 
+        className="flex items-center justify-center"
+        style={{ minHeight: "calc(var(--vh, 1vh) * 100)" }}
+      >
         <ReleaseCard releases={releases} />
       </div>
       <Footer />
