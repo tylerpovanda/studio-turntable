@@ -114,8 +114,8 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 // If height < 600px, show overlay message
 const isDesktop = window.innerWidth >=768;
 
-// if (windowHeight < 599) {
-if(isDesktop && windowHeight < 599) {
+// if (windowHeight < 720) {
+if(isDesktop && windowHeight < 720) {
   const titleHeight = 80; // match App.tsx title height
   const availableHeight = windowHeight - titleHeight;
 
@@ -304,7 +304,7 @@ if(isDesktop && windowHeight < 599) {
         justifyContent:
           windowHeight >= 900
             ? "center"
-            : windowHeight >= 599
+            : windowHeight >= 720
             ? "flex-start"
             : "center",
       }}
@@ -314,7 +314,7 @@ if(isDesktop && windowHeight < 599) {
         className="flex flex-col items-center"
         style={{
           marginTop:
-            windowHeight >= 599 && windowHeight < 900
+            windowHeight >= 720 && windowHeight < 900
               ? (windowHeight - titleHeight) / 2 - jacketSize / 2
               : 0,
         }}
