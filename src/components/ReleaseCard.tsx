@@ -300,6 +300,8 @@ if(isDesktop && windowHeight < 705) {
     //         : "center",
     //   }}
     // >
+
+    // this was working
     <div
     className="flex flex-col items-center gap-6 p-4 "
   >

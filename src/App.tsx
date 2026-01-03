@@ -80,11 +80,11 @@
 // export default App;
 
 
-import { useEffect } from "react";
-import ReleaseCard from "./components/ReleaseCard";
-import releases from "./data/releases.json";
-import Footer from "./components/Footer";
-import Title from "./components/Title";
+// import { useEffect } from "react";
+// import ReleaseCard from "./components/ReleaseCard";
+// import releases from "./data/releases.json";
+// import Footer from "./components/Footer";
+// import Title from "./components/Title";
 
 // function App() {
 //   useEffect(() => {
@@ -122,6 +122,11 @@ import Title from "./components/Title";
 // export default App;
 
 
+import { useEffect } from "react";
+import ReleaseCard from "./components/ReleaseCard";
+import Title from "./components/Title";
+import Footer from "./components/Footer";
+import releases from "./data/releases.json";
 
 function App() {
   useEffect(() => {
@@ -135,20 +140,11 @@ function App() {
   }, []);
 
   return (
-    <div className="relative w-full bg-white overflow-x-hidden">
+    <div className="flex flex-col min-h-[calc(var(--vh,1vh)*100)] w-full bg-white overflow-x-hidden">
       <Title />
 
-      {/* Center container */}
-      <div
-        className="flex flex-col items-center w-full px-4"
-        style={{
-          // MOBILE: full viewport height
-          minHeight: "calc(var(--vh, 1vh) * 100)",
-
-          // DESKTOP: center between title and footer
-          // We’ll adjust this in ReleaseCard for actual vertical alignment
-        }}
-      >
+      {/* CENTERED CONTENT */}
+      <div className="flex-1 flex flex-col justify-center items-center px-4">
         <ReleaseCard releases={releases} />
       </div>
 
