@@ -36,8 +36,8 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
   const scratchCWRef = useRef<HTMLAudioElement | null>(null);
   const scratchCCWRef = useRef<HTMLAudioElement | null>(null);
   // 🔊 UI spin sounds (button-only)
-    const spinNextRef = useRef<HTMLAudioElement | null>(null);
-    const spinPrevRef = useRef<HTMLAudioElement | null>(null);
+  const spinNextRef = useRef<HTMLAudioElement | null>(null);
+  const spinPrevRef = useRef<HTMLAudioElement | null>(null);
 
 
   // 📏 Window height
@@ -45,23 +45,32 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 
   // Wrap in useCallback and include all external dependencies
   const updateContentScale = useCallback(() => {
-    const mobile = window.innerWidth < 768;
+  const width = window.innerWidth;
+  const mobile = width < 434;
+  const awkward = width >= 434 && width <768 
+  const tablet = width >= 768 && width <= 1024;
+  // const desktop = width > 1024;
 
-    const jacketSize = mobile ? 220 : 320;
-    const vinylSize = mobile ? 160 : 256;
-    const textWidth = 300;
-    const margin = 30;
+  const jacketSize = mobile ? 220 : 320;
+  const vinylSize = mobile ? 160 : 256;
+  const textWidth = 300;
+  const margin = 30;
 
-    const totalContentWidth = jacketSize + vinylSize / 2 + textWidth + margin;
-    const maxWidth = window.innerWidth - 32;
-    const scale = Math.min(1, maxWidth / totalContentWidth);
+  // Adjust vinyl width for scaling math depending on device
+  const vinylFactor = mobile ? 1 : awkward ? 0.9 : tablet ? 1 : 2; 
+  const totalContentWidth = jacketSize + vinylSize / vinylFactor + textWidth + margin;
 
-    setContentScale(scale);
+  const maxWidth = width - 32; // leave some padding
+  const scale = Math.min(1, maxWidth / totalContentWidth);
 
-    const extraSpace = maxWidth - totalContentWidth * scale;
-    const mobileShift = Math.min(0, extraSpace / 2 + mobileHorizontalOffset);
-    setContentShiftX(mobile ? mobileShift : 0);
-  }, [mobileHorizontalOffset]); // ✅ include mobileHorizontalOffset
+  setContentScale(scale);
+
+  // shift for mobile
+  const extraSpace = maxWidth - totalContentWidth * scale;
+  const mobileShift = Math.min(0, extraSpace / 2 + mobileHorizontalOffset);
+  setContentShiftX(mobile ? mobileShift : 0);
+}, [mobileHorizontalOffset]);
+
 
   // Safe effect
   useEffect(() => {
@@ -84,7 +93,6 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
     // call once safely
     const frame = requestAnimationFrame(() => updateContentScale());
 
-    // resize handler
     const handleResize = () => {
         requestAnimationFrame(() => updateContentScale());
         setWindowHeight(window.innerHeight);
@@ -92,7 +100,7 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 
     window.addEventListener("resize", handleResize);
 
-    // load audio once
+    // create audio objects
     scratchCWRef.current = new Audio("/sounds/scratch1.wav");
     scratchCCWRef.current = new Audio("/sounds/scratch2.wav");
     scratchCWRef.current.volume = 0.5;
@@ -103,30 +111,41 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
     spinNextRef.current.volume = 0.5;
     spinPrevRef.current.volume = 0.5;
 
+    // iOS unlock workaround: attach a first gesture to allow audio playback
+    const unlock = () => {
+        // nothing to play, just call .play().catch() on a muted audio to unlock
+        scratchCWRef.current?.play().catch(() => {});
+        scratchCWRef.current?.pause();
+        scratchCWRef.current!.currentTime = 0;
+
+        scratchCCWRef.current?.play().catch(() => {});
+        scratchCCWRef.current?.pause();
+        scratchCCWRef.current!.currentTime = 0;
+
+        // remove listeners after first interaction
+        window.removeEventListener("touchstart", unlock);
+        window.removeEventListener("pointerdown", unlock);
+    };
+    window.addEventListener("touchstart", unlock, { once: true });
+    window.addEventListener("pointerdown", unlock, { once: true });
+
     return () => {
         cancelAnimationFrame(frame);
         window.removeEventListener("resize", handleResize);
     };
-  }, [updateContentScale]);
+}, [updateContentScale]);
+
+  
 
   if (!releases || releases.length === 0) return <div>No releases available</div>;
 
 // If height < 600px, show overlay message
 const isDesktop = window.innerWidth >=768;
 
-// if (windowHeight < 720) {
-if(isDesktop && windowHeight < 720) {
-  const titleHeight = 80; // match App.tsx title height
-  const availableHeight = windowHeight - titleHeight;
-
+// if (windowHeight < 740) {
+if(isDesktop && windowHeight < 705) {
   return (
-    <div
-      className="absolute left-0 w-full flex flex-col items-center justify-center gap-1 p-4"
-      style={{
-        top: titleHeight,       // start right below the title
-        height: availableHeight, // fill the rest of the viewport
-      }}
-    >
+    <div className="flex flex-col flex-1 justify-center items-center gap-1 px-4">
       <motion.div
         className="text-center text-black text-2xl font-jacquard"
         animate={{ opacity: [0, 1, 0], y: [0, -10, 0] }}
@@ -294,30 +313,30 @@ if(isDesktop && windowHeight < 720) {
     return parts[parts.length - 1].split("?")[0];
   };
 
-  const titleHeight = 80; // height of your app title
+ 
 
   return (
+    // <div
+    //   className="flex flex-col items-center gap-6 p-4 relative overflow-visible"
+    //   style={{
+    //     minHeight: "calc(var(--vh, 1vh) * 100)",
+    //     justifyContent:
+    //       windowHeight >= 900
+    //         ? "center"
+    //         : windowHeight >= 720
+    //         ? "flex-start"
+    //         : "center",
+    //   }}
+    // >
+
+    // this was working
     <div
-      className="flex flex-col items-center min-h-screen gap-6 p-4 relative overflow-visible"
-      style={{
-        minHeight: "calc(var(--vh, 1vh) * 100)",
-        justifyContent:
-          windowHeight >= 900
-            ? "center"
-            : windowHeight >= 720
-            ? "flex-start"
-            : "center",
-      }}
-    >
+    className="flex flex-col items-center gap-6 p-4 "
+  >
       {/* Release card wrapper */}
       <div
         className="flex flex-col items-center"
-        style={{
-          marginTop:
-            windowHeight >= 720 && windowHeight < 900
-              ? (windowHeight - titleHeight) / 2 - jacketSize / 2
-              : 0,
-        }}
+
       >
         {/* SCALE EVERYTHING */}
         <motion.div
