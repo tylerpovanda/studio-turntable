@@ -140,16 +140,16 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-[calc(var(--vh,1vh)*100)] w-full bg-white overflow-x-hidden">
-      <Title />
+    <div className="flex flex-col min-h-[calc(var(--vh,1vh)*100)] w-full bg-white">
+  <Title />
 
-      {/* CENTERED CONTENT */}
-      <div className="flex-1 flex flex-col justify-center items-center px-4">
-        <ReleaseCard releases={releases} />
-      </div>
+  {/* MOBILE / TABLET CONTENT */}
+  <div className="flex-1 flex flex-col justify-center items-center">
+    <ReleaseCard releases={releases} />
+  </div>
 
-      <Footer />
-    </div>
+  <Footer />
+</div>
   );
 }
 
