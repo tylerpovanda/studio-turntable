@@ -294,7 +294,7 @@ if(isDesktop && windowHeight < 720) {
     return parts[parts.length - 1].split("?")[0];
   };
 
-  const titleHeight = 80; // height of your app title
+ 
 
   return (
     // <div
