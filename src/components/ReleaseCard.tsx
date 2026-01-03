@@ -296,18 +296,11 @@ if(isDesktop && windowHeight < 720) {
 
   const titleHeight = 80; // height of your app title
 
-  const verticalAlign =
-    windowHeight >= 900
-      ? "center"
-      : windowHeight >= 760
-      ? "flex-start"
-      : "center";
-
-
   return (
     <div
       className="flex flex-col items-center gap-6 p-4 relative overflow-visible"
       style={{
+        minHeight: "calc(var(--vh, 1vh) * 100)",
         justifyContent:
           windowHeight >= 900
             ? "center"
@@ -318,9 +311,12 @@ if(isDesktop && windowHeight < 720) {
     >
       {/* Release card wrapper */}
       <div
-        className="flex flex-col items-center w-full"
+        className="flex flex-col items-center"
         style={{
-          justifyContent: verticalAlign
+          marginTop:
+            windowHeight >= 720 && windowHeight < 900
+              ? (windowHeight - titleHeight) / 2 - jacketSize / 2
+              : 0,
         }}
       >
         {/* SCALE EVERYTHING */}
@@ -329,7 +325,7 @@ if(isDesktop && windowHeight < 720) {
             scale: contentScale,
             translateX: contentShiftX,
           }}
-          className="flex flex-row items-center gap-3 relative overflow-visible justify-center"
+          className="flex flex-row items-center gap-6 relative overflow-visible justify-center"
         >
           {/* Album Artwork */}
           <div
@@ -430,7 +426,7 @@ if(isDesktop && windowHeight < 720) {
         </motion.div>
 
         {/* Spotify Embed */}
-        <div className="relative w-75 h-20 mt-2 flex justify-center">
+        <div className="relative w-75 h-20 mt-4 flex justify-center">
           {oldRelease?.spotifyUrl && (
             <motion.iframe
               key={oldRelease.spotifyUrl}
@@ -462,7 +458,7 @@ if(isDesktop && windowHeight < 720) {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-4 mt-2 justify-center">
+        <div className="flex gap-4 mt-4 justify-center">
           <button
             className="
               px-4 py-2
