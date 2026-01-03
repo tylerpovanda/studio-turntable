@@ -86,6 +86,43 @@ import releases from "./data/releases.json";
 import Footer from "./components/Footer";
 import Title from "./components/Title";
 
+// function App() {
+//   useEffect(() => {
+//     const setVh = () => {
+//       const vh = window.innerHeight * 0.01;
+//       document.documentElement.style.setProperty("--vh", `${vh}px`);
+//     };
+//     setVh();
+//     window.addEventListener("resize", setVh);
+//     return () => window.removeEventListener("resize", setVh);
+//   }, []);
+
+//   return (
+//     // <div className="flex flex-col min-h-screen">
+//     <div
+//   className="relative bg-white"
+//   style={{
+//     width: "100vw",
+//     minHeight: "calc(var(--vh, 1vh) * 100)",
+//     overflowX: "hidden",
+//   }}
+// >
+//       <Title />
+//       <div className="w-full flex-1 md:flex md:items-center md:justify-center md:py-4">
+//         <div className="md:-translate-y-20">
+//           <ReleaseCard releases={releases} />
+//         </div>
+//       </div>
+
+//       <Footer />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
 function App() {
   useEffect(() => {
     const setVh = () => {
@@ -98,20 +135,21 @@ function App() {
   }, []);
 
   return (
-    // <div className="flex flex-col min-h-screen">
-    <div
-  className="relative bg-white"
-  style={{
-    width: "100vw",
-    minHeight: "calc(var(--vh, 1vh) * 100)",
-    overflowX: "hidden",
-  }}
->
+    <div className="relative w-full bg-white overflow-x-hidden">
       <Title />
-      <div className="w-full flex-1 md:flex md:items-center md:justify-center md:py-4">
-        <div className="md:-translate-y-20">
-          <ReleaseCard releases={releases} />
-        </div>
+
+      {/* Center container */}
+      <div
+        className="flex flex-col items-center w-full px-4"
+        style={{
+          // MOBILE: full viewport height
+          minHeight: "calc(var(--vh, 1vh) * 100)",
+
+          // DESKTOP: center between title and footer
+          // We’ll adjust this in ReleaseCard for actual vertical alignment
+        }}
+      >
+        <ReleaseCard releases={releases} />
       </div>
 
       <Footer />
