@@ -51,6 +51,7 @@ import { useEffect } from "react";
 import ReleaseCard from "./components/ReleaseCard";
 import releases from "./data/releases.json";
 import Footer from "./components/Footer";
+import Title from "./components/Title";
 
 function App() {
   useEffect(() => {
@@ -66,25 +67,14 @@ function App() {
 
   return (
     <div
-      className="relative min-h-screen bg-white flex flex-col overflow-x-hidden"
+      className="min-h-screen bg-white flex flex-col overflow-x-hidden"
       style={{ width: "100vw" }}
     >
-      {/* ===== TITLE SPACER (RESERVES SPACE) ===== */}
-      <div className="relative h-28 shrink-0">
-        <div className="absolute top-8 w-full flex justify-center z-50">
-          <div className="w-full max-w-xs sm:max-w-md md:max-w-160 px-4 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-jacquard">
-              tyler povanda
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl font-jacquard text-gray-500">
-              music that i helped make
-            </p>
-          </div>
-        </div>
-      </div>
+      {/* ===== TITLE ===== */}
+      <Title />
 
-      {/* ===== MAIN CONTENT AREA ===== */}
-      <main className="flex-1 flex justify-center">
+      {/* ===== MAIN CONTENT ===== */}
+      <main className="flex-1 flex items-center justify-center px-4">
         <ReleaseCard releases={releases} />
       </main>
 

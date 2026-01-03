@@ -310,7 +310,7 @@ if(isDesktop && windowHeight < 720) {
     //   }}
     // >
     <div
-    className="flex flex-col items-center gap-6 p-4 relative overflow-visible"
+    className="flex flex-col items-center gap-6 p-4 "
   >
       {/* Release card wrapper */}
       <div
