@@ -99,14 +99,17 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen">
-  <Title />
+      <Title />
 
-  <div className="flex-1 flex items-center justify-center px-4">
-    <ReleaseCard releases={releases} />
-  </div>
+      <main className="flex flex-col items-center px-4 mt-4 sm:mt-8 flex-1">
+        {/* Wrapper for vertical centering on desktop only */}
+        <div className="w-full md:flex md:flex-1 md:items-center md:justify-center">
+          <ReleaseCard releases={releases} />
+        </div>
+      </main>
 
-  <Footer />
-</div>
+      <Footer />
+    </div>
   );
 }
 
