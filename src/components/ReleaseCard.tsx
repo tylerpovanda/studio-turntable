@@ -115,18 +115,9 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 const isDesktop = window.innerWidth >=768;
 
 // if (windowHeight < 740) {
-if(isDesktop && windowHeight < 740) {
-  const titleHeight = 80; // match App.tsx title height
-  const availableHeight = windowHeight - titleHeight;
-
+if(isDesktop && windowHeight < 705) {
   return (
-    <div
-      className="absolute left-0 w-full flex flex-col items-center justify-center gap-1 p-4"
-      style={{
-        top: titleHeight,       // start right below the title
-        height: availableHeight, // fill the rest of the viewport
-      }}
-    >
+    <div className="flex flex-col flex-1 justify-center items-center gap-1 px-4">
       <motion.div
         className="text-center text-black text-2xl font-jacquard"
         animate={{ opacity: [0, 1, 0], y: [0, -10, 0] }}
