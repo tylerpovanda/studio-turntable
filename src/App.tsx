@@ -20,7 +20,7 @@ function App() {
       style={{
         width: "100vw",       // full viewport width
         overflowX: "hidden",  // prevent horizontal overflow
-        overflowY: "scroll",  // always reserve vertical scrollbar space
+        overflowY: "auto",  // always reserve vertical scrollbar space
       }}
     >
       {/* Title fixed at top, scales */}
@@ -37,7 +37,7 @@ function App() {
       </div>
 
       {/* Release Card centered in viewport */}
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center">
         <ReleaseCard releases={releases} />
       </div>
       <Footer />
