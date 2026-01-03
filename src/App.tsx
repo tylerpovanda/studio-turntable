@@ -121,7 +121,6 @@
 
 // export default App;
 
-
 import { useState, useEffect } from "react";
 import ReleaseCard from "./components/ReleaseCard";
 import releases from "./data/releases.json";
@@ -130,12 +129,10 @@ import Title from "./components/Title";
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-  // Update viewport size & mobile flag on resize
+  // Update mobile flag on resize
   useEffect(() => {
     const handleResize = () => {
-      setWindowHeight(window.innerHeight);
       setIsMobile(window.innerWidth < 768);
     };
 
