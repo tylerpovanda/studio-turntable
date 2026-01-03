@@ -93,7 +93,6 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
     // call once safely
     const frame = requestAnimationFrame(() => updateContentScale());
 
-    // resize handler
     const handleResize = () => {
         requestAnimationFrame(() => updateContentScale());
         setWindowHeight(window.innerHeight);
@@ -101,7 +100,7 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 
     window.addEventListener("resize", handleResize);
 
-    // load audio once
+    // create audio objects
     scratchCWRef.current = new Audio("/sounds/scratch1.wav");
     scratchCCWRef.current = new Audio("/sounds/scratch2.wav");
     scratchCWRef.current.volume = 0.5;
@@ -112,32 +111,31 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
     spinNextRef.current.volume = 0.5;
     spinPrevRef.current.volume = 0.5;
 
+    // iOS unlock workaround: attach a first gesture to allow audio playback
+    const unlock = () => {
+        // nothing to play, just call .play().catch() on a muted audio to unlock
+        scratchCWRef.current?.play().catch(() => {});
+        scratchCWRef.current?.pause();
+        scratchCWRef.current!.currentTime = 0;
+
+        scratchCCWRef.current?.play().catch(() => {});
+        scratchCCWRef.current?.pause();
+        scratchCCWRef.current!.currentTime = 0;
+
+        // remove listeners after first interaction
+        window.removeEventListener("touchstart", unlock);
+        window.removeEventListener("pointerdown", unlock);
+    };
+    window.addEventListener("touchstart", unlock, { once: true });
+    window.addEventListener("pointerdown", unlock, { once: true });
+
     return () => {
         cancelAnimationFrame(frame);
         window.removeEventListener("resize", handleResize);
     };
-  }, [updateContentScale]);
+}, [updateContentScale]);
 
-  // unlock scratch sounds on first user interaction (for mobile/iPad)
-const unlockAudio = () => {
-  if (scratchCWRef.current && scratchCCWRef.current) {
-    // play silently once to unlock
-    scratchCWRef.current.play().catch(() => {});
-    scratchCWRef.current.pause();
-    scratchCWRef.current.currentTime = 0;
-
-    scratchCCWRef.current.play().catch(() => {});
-    scratchCCWRef.current.pause();
-    scratchCCWRef.current.currentTime = 0;
-
-    // Remove the event listeners after unlocking
-    window.removeEventListener("touchstart", unlockAudio);
-    window.removeEventListener("pointerdown", unlockAudio);
-  }
-};
-
-window.addEventListener("touchstart", unlockAudio, { once: true });
-window.addEventListener("pointerdown", unlockAudio, { once: true });
+  
 
   if (!releases || releases.length === 0) return <div>No releases available</div>;
 
