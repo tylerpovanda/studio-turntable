@@ -122,13 +122,28 @@
 // export default App;
 
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import ReleaseCard from "./components/ReleaseCard";
-import Title from "./components/Title";
-import Footer from "./components/Footer";
 import releases from "./data/releases.json";
+import Footer from "./components/Footer";
+import Title from "./components/Title";
 
 function App() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+
+  // Update viewport size & mobile flag on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // CSS variable for mobile vh fixes
   useEffect(() => {
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
@@ -140,20 +155,35 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-white">
+    <div
+      className="flex flex-col min-h-screen bg-white w-full overflow-x-hidden"
+      style={{ overflowY: "scroll" }}
+    >
+      {/* Title */}
+      <Title />
 
-  {/* Title */}
-  <Title />
+      {/* Main content wrapper */}
+      {isMobile ? (
+        // MOBILE: simple flow layout
+        <div className="flex flex-col items-center justify-center px-4 flex-1">
+          <ReleaseCard releases={releases} />
+        </div>
+      ) : (
+        // DESKTOP: centered between title and footer
+        <div
+          className="flex flex-col items-center px-4"
+          style={{
+            minHeight: `calc(var(--vh, 1vh) * 100 - 80px - 80px)`, // subtract title + footer height
+            justifyContent: "center",
+          }}
+        >
+          <ReleaseCard releases={releases} />
+        </div>
+      )}
 
-  {/* Release Card */}
-  <div className="flex-1 flex flex-col justify-center items-center px-4">
-    <ReleaseCard releases={releases} />
-  </div>
-
-  {/* Footer */}
-  <Footer />
-</div>
-
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 }
 
