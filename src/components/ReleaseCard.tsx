@@ -36,8 +36,8 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
   const scratchCWRef = useRef<HTMLAudioElement | null>(null);
   const scratchCCWRef = useRef<HTMLAudioElement | null>(null);
   // 🔊 UI spin sounds (button-only)
-    const spinNextRef = useRef<HTMLAudioElement | null>(null);
-    const spinPrevRef = useRef<HTMLAudioElement | null>(null);
+  const spinNextRef = useRef<HTMLAudioElement | null>(null);
+  const spinPrevRef = useRef<HTMLAudioElement | null>(null);
 
 
   // 📏 Window height
@@ -117,6 +117,27 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
         window.removeEventListener("resize", handleResize);
     };
   }, [updateContentScale]);
+
+  // unlock scratch sounds on first user interaction (for mobile/iPad)
+const unlockAudio = () => {
+  if (scratchCWRef.current && scratchCCWRef.current) {
+    // play silently once to unlock
+    scratchCWRef.current.play().catch(() => {});
+    scratchCWRef.current.pause();
+    scratchCWRef.current.currentTime = 0;
+
+    scratchCCWRef.current.play().catch(() => {});
+    scratchCCWRef.current.pause();
+    scratchCCWRef.current.currentTime = 0;
+
+    // Remove the event listeners after unlocking
+    window.removeEventListener("touchstart", unlockAudio);
+    window.removeEventListener("pointerdown", unlockAudio);
+  }
+};
+
+window.addEventListener("touchstart", unlockAudio, { once: true });
+window.addEventListener("pointerdown", unlockAudio, { once: true });
 
   if (!releases || releases.length === 0) return <div>No releases available</div>;
 
