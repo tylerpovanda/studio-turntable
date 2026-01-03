@@ -6,7 +6,7 @@ const Title = () => {
           tyler povanda
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl font-jacquard text-gray-500">
-          music that i helped make...
+          music that i helped make
         </p>
       </div>
     </header>

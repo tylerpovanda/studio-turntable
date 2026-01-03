@@ -47,6 +47,39 @@
 
 // export default App;
 
+// import { useEffect } from "react";
+// import ReleaseCard from "./components/ReleaseCard";
+// import releases from "./data/releases.json";
+// import Footer from "./components/Footer";
+// import Title from "./components/Title";
+
+// function App() {
+//   useEffect(() => {
+//     const setVh = () => {
+//       const vh = window.innerHeight * 0.01;
+//       document.documentElement.style.setProperty("--vh", `${vh}px`);
+//     };
+//     setVh();
+//     window.addEventListener("resize", setVh);
+//     return () => window.removeEventListener("resize", setVh);
+//   }, []);
+
+//   return (
+//     <div className="flex flex-col bg-white overflow-x-hidden">
+//       <Title />
+
+//       <main className="flex flex-col items-center px-4 mt-4 sm:mt-8 md:flex-1 md:justify-center">
+//         <ReleaseCard releases={releases} />
+//       </main>
+
+//       <Footer />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
 import { useEffect } from "react";
 import ReleaseCard from "./components/ReleaseCard";
 import releases from "./data/releases.json";
@@ -65,15 +98,15 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col bg-white overflow-x-hidden">
-      <Title />
+    <div className="flex flex-col min-h-screen">
+  <Title />
 
-      <main className="flex flex-col items-center px-4 mt-4 sm:mt-8 md:flex-1 md:justify-center">
-        <ReleaseCard releases={releases} />
-      </main>
+  <div className="flex-1 flex items-center justify-center px-4">
+    <ReleaseCard releases={releases} />
+  </div>
 
-      <Footer />
-    </div>
+  <Footer />
+</div>
   );
 }
 
