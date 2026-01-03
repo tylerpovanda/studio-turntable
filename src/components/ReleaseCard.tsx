@@ -114,8 +114,8 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 // If height < 600px, show overlay message
 const isDesktop = window.innerWidth >=768;
 
-// if (windowHeight < 720) {
-if(isDesktop && windowHeight < 720) {
+// if (windowHeight < 740) {
+if(isDesktop && windowHeight < 740) {
   const titleHeight = 80; // match App.tsx title height
   const availableHeight = windowHeight - titleHeight;
 
