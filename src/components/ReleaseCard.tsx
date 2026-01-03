@@ -262,22 +262,22 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 ) * 100;
 
   return (
-    <div
-      className="flex flex-col items-center min-h-screen gap-6 p-4 relative overflow-visible"
-      style={{
-        minHeight: "calc(var(--vh, 1vh) * 100)",
-        justifyContent:
-          vh >= 900
-            ? "center"
-            : vh >= 599
-            ? "flex-start"
-            : "center",
-        marginTop:
-        vh >= 599 && vh < 900
-            ? (vh - titleHeight) / 2 - jacketSize / 2
-            : 0,
-      }}
-    >
+<div
+  className="flex flex-col items-center min-h-screen gap-6 p-4 relative overflow-visible"
+  style={{
+    minHeight: "calc(var(--vh, 1vh) * 100)", // only for vertical space
+    justifyContent:
+      windowHeight >= 900
+        ? "center"
+        : windowHeight >= 599
+        ? "flex-start"
+        : "center",
+    marginTop:
+      windowHeight >= 599 && windowHeight < 900
+        ? (windowHeight - titleHeight) / 2 - jacketSize / 2
+        : 0,
+  }}
+>
       {/* Release card wrapper */}
       <div
         className="flex flex-col items-center"
