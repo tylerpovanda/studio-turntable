@@ -257,17 +257,25 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 
   const titleHeight = 80; // your app title
 
+  const vh = parseFloat(
+  getComputedStyle(document.documentElement).getPropertyValue("--vh")
+) * 100;
+
   return (
     <div
       className="flex flex-col items-center min-h-screen gap-6 p-4 relative overflow-visible"
       style={{
         minHeight: "calc(var(--vh, 1vh) * 100)",
         justifyContent:
-          windowHeight >= 900
+          vh >= 900
             ? "center"
-            : windowHeight >= 599
+            : vh >= 599
             ? "flex-start"
             : "center",
+        marginTop:
+        vh >= 599 && vh < 900
+            ? (vh - titleHeight) / 2 - jacketSize / 2
+            : 0,
       }}
     >
       {/* Release card wrapper */}
@@ -275,7 +283,7 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
         className="flex flex-col items-center"
         style={{
           marginTop:
-            windowHeight >= 599 && windowHeight < 900
+            windowHeight >= 760 && windowHeight < 900
               ? (windowHeight - titleHeight) / 2 - jacketSize / 2
               : 0,
         }}
