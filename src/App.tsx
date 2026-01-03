@@ -98,7 +98,15 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    // <div className="flex flex-col min-h-screen">
+    <div
+  className="relative bg-white"
+  style={{
+    width: "100vw",
+    minHeight: "calc(var(--vh, 1vh) * 100)",
+    overflowX: "hidden",
+  }}
+>
       <Title />
       <div className="w-full flex-1 md:flex md:items-center md:justify-center md:py-4">
         <div className="md:-translate-y-20">
