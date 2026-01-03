@@ -59,26 +59,19 @@ function App() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
-
     setVh();
     window.addEventListener("resize", setVh);
     return () => window.removeEventListener("resize", setVh);
   }, []);
 
   return (
-    <div
-      className="min-h-screen bg-white flex flex-col overflow-x-hidden"
-      style={{ width: "100vw" }}
-    >
-      {/* ===== TITLE ===== */}
+    <div className="flex flex-col bg-white overflow-x-hidden">
       <Title />
 
-      {/* ===== MAIN CONTENT ===== */}
-      <main className="flex-1 flex items-center justify-center px-4">
+      <main className="flex flex-col items-center px-4 mt-4 sm:mt-8 md:flex-1 md:justify-center">
         <ReleaseCard releases={releases} />
       </main>
 
-      {/* ===== FOOTER ===== */}
       <Footer />
     </div>
   );
