@@ -45,23 +45,32 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
 
   // Wrap in useCallback and include all external dependencies
   const updateContentScale = useCallback(() => {
-    const mobile = window.innerWidth < 768;
+  const width = window.innerWidth;
+  const mobile = width < 434;
+  const awkward = width >= 434 && width <768 
+  const tablet = width >= 768 && width <= 1024;
+  // const desktop = width > 1024;
 
-    const jacketSize = mobile ? 220 : 320;
-    const vinylSize = mobile ? 160 : 256;
-    const textWidth = 300;
-    const margin = 30;
+  const jacketSize = mobile ? 220 : 320;
+  const vinylSize = mobile ? 160 : 256;
+  const textWidth = 300;
+  const margin = 30;
 
-    const totalContentWidth = jacketSize + vinylSize / 2 + textWidth + margin;
-    const maxWidth = window.innerWidth - 32;
-    const scale = Math.min(1, maxWidth / totalContentWidth);
+  // Adjust vinyl width for scaling math depending on device
+  const vinylFactor = mobile ? 1 : awkward ? 0.9 : tablet ? 1 : 2; 
+  const totalContentWidth = jacketSize + vinylSize / vinylFactor + textWidth + margin;
 
-    setContentScale(scale);
+  const maxWidth = width - 32; // leave some padding
+  const scale = Math.min(1, maxWidth / totalContentWidth);
 
-    const extraSpace = maxWidth - totalContentWidth * scale;
-    const mobileShift = Math.min(0, extraSpace / 2 + mobileHorizontalOffset);
-    setContentShiftX(mobile ? mobileShift : 0);
-  }, [mobileHorizontalOffset]); // ✅ include mobileHorizontalOffset
+  setContentScale(scale);
+
+  // shift for mobile
+  const extraSpace = maxWidth - totalContentWidth * scale;
+  const mobileShift = Math.min(0, extraSpace / 2 + mobileHorizontalOffset);
+  setContentShiftX(mobile ? mobileShift : 0);
+}, [mobileHorizontalOffset]);
+
 
   // Safe effect
   useEffect(() => {
