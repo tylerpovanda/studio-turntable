@@ -297,18 +297,21 @@ if(isDesktop && windowHeight < 720) {
   const titleHeight = 80; // height of your app title
 
   return (
+    // <div
+    //   className="flex flex-col items-center gap-6 p-4 relative overflow-visible"
+    //   style={{
+    //     minHeight: "calc(var(--vh, 1vh) * 100)",
+    //     justifyContent:
+    //       windowHeight >= 900
+    //         ? "center"
+    //         : windowHeight >= 720
+    //         ? "flex-start"
+    //         : "center",
+    //   }}
+    // >
     <div
-      className="flex flex-col items-center gap-6 p-4 relative overflow-visible"
-      style={{
-        minHeight: "calc(var(--vh, 1vh) * 100)",
-        justifyContent:
-          windowHeight >= 900
-            ? "center"
-            : windowHeight >= 720
-            ? "flex-start"
-            : "center",
-      }}
-    >
+    className="flex flex-col items-center gap-6 p-4 relative overflow-visible"
+  >
       {/* Release card wrapper */}
       <div
         className="flex flex-col items-center"
