@@ -112,7 +112,10 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
   if (!releases || releases.length === 0) return <div>No releases available</div>;
 
 // If height < 600px, show overlay message
-if (windowHeight < 599) {
+const isDesktop = window.innerWidth >=768;
+
+// if (windowHeight < 599) {
+if(isDesktop && windowHeight < 599) {
   const titleHeight = 80; // match App.tsx title height
   const availableHeight = windowHeight - titleHeight;
 
@@ -297,6 +300,7 @@ if (windowHeight < 599) {
     <div
       className="flex flex-col items-center min-h-screen gap-6 p-4 relative overflow-visible"
       style={{
+        minHeight: "calc(var(--vh, 1vh) * 100)",
         justifyContent:
           windowHeight >= 900
             ? "center"
