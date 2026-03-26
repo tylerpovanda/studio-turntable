@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
+// import { faInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const Footer: React.FC = () => (
@@ -12,14 +12,14 @@ const Footer: React.FC = () => (
 
     {/* Social icons row */}
     <div className="flex gap-6">
-      <a
+      {/* <a
         href="https://www.instagram.com/poetry.vandal"
         target="_blank"
         rel="noopener noreferrer"
         className="text-gray-500 hover:text-gray-400 transition"
       >
         <FontAwesomeIcon icon={faInstagram} className="w-6 h-6" />
-      </a>
+      </a> */}
 
       <a
         href="mailto:tyler.povanda@gmail.com"
@@ -28,14 +28,14 @@ const Footer: React.FC = () => (
         <FontAwesomeIcon icon={faEnvelope} className="w-6 h-6" />
       </a>
 
-      <a
+      {/* <a
         href="https://www.tiktok.com/@poetryvandal"
         target="_blank"
         rel="noopener noreferrer"
         className="text-gray-500 hover:text-gray-400 transition"
       >
         <FontAwesomeIcon icon={faTiktok} className="w-6 h-6" />
-      </a>
+      </a> */}
     </div>
   </div>
 );
