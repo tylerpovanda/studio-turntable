@@ -139,6 +139,7 @@ if(isDesktop && windowHeight < 720) {
         className="w-8 h-8"
         animate={{ opacity: [0, 1, 0], y: [0, -10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
+        alt="downward chevron"
       />
     </div>
   );
@@ -342,6 +343,7 @@ if(isDesktop && windowHeight < 720) {
                 animate={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
                 draggable={false}
+                alt={oldRelease.title}
               />
             )}
             <motion.img
@@ -352,6 +354,7 @@ if(isDesktop && windowHeight < 720) {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.25 }}
               draggable={false}
+              alt={currentRelease.title}
             />
           </div>
 
@@ -373,6 +376,7 @@ if(isDesktop && windowHeight < 720) {
               src={vinylImg}
               className="absolute w-full h-full object-cover rounded-full shadow-lg select-none"
               style={{ rotate: rotateZ }}
+              alt="vinyl record"
             />
 
             {oldRelease && (
