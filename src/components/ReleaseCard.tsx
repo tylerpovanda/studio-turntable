@@ -32,43 +32,43 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
   const [isMobile] = useState(window.innerWidth < 768); // or calculate dynamically in effect
   const mobileHorizontalOffset = -40;
 
-  // 🔊 Scratch sounds
+  // Scratch sounds
   const scratchCWRef = useRef<HTMLAudioElement | null>(null);
   const scratchCCWRef = useRef<HTMLAudioElement | null>(null);
-  // 🔊 UI spin sounds (button-only)
+  // UI spin sounds (button-only)
   const spinNextRef = useRef<HTMLAudioElement | null>(null);
   const spinPrevRef = useRef<HTMLAudioElement | null>(null);
 
 
-  // 📏 Window height
+  // Window height
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   // Wrap in useCallback and include all external dependencies
   const updateContentScale = useCallback(() => {
-  const width = window.innerWidth;
-  const mobile = width < 434;
-  const awkward = width >= 434 && width <768 
-  const tablet = width >= 768 && width <= 1024;
-  // const desktop = width > 1024;
+    const width = window.innerWidth;
+    const mobile = width < 434;
+    const awkward = width >= 434 && width <768 
+    const tablet = width >= 768 && width <= 1024;
+    // const desktop = width > 1024;
 
-  const jacketSize = mobile ? 220 : 320;
-  const vinylSize = mobile ? 160 : 256;
-  const textWidth = 300;
-  const margin = 30;
+    const jacketSize = mobile ? 220 : 320;
+    const vinylSize = mobile ? 160 : 256;
+    const textWidth = 300;
+    const margin = 30;
 
-  // Adjust vinyl width for scaling math depending on device
-  const vinylFactor = mobile ? 1 : awkward ? 0.9 : tablet ? 1 : 2; 
-  const totalContentWidth = jacketSize + vinylSize / vinylFactor + textWidth + margin;
+    // Adjust vinyl width for scaling math depending on device
+    const vinylFactor = mobile ? 1 : awkward ? 0.9 : tablet ? 1 : 2; 
+    const totalContentWidth = jacketSize + vinylSize / vinylFactor + textWidth + margin;
 
-  const maxWidth = width - 32; // leave some padding
-  const scale = Math.min(1, maxWidth / totalContentWidth);
+    const maxWidth = width - 32; // leave some padding
+    const scale = Math.min(1, maxWidth / totalContentWidth);
 
-  setContentScale(scale);
+    setContentScale(scale);
 
-  // shift for mobile
-  const extraSpace = maxWidth - totalContentWidth * scale;
-  const mobileShift = Math.min(0, extraSpace / 2 + mobileHorizontalOffset);
-  setContentShiftX(mobile ? mobileShift : 0);
+    // shift for mobile
+    const extraSpace = maxWidth - totalContentWidth * scale;
+    const mobileShift = Math.min(0, extraSpace / 2 + mobileHorizontalOffset);
+    setContentShiftX(mobile ? mobileShift : 0);
 }, [mobileHorizontalOffset]);
 
 
@@ -87,7 +87,7 @@ const ReleaseCard: React.FC<ReleaseCardProps> = ({ releases }) => {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", handleResize);
     };
-  }, [updateContentScale]); // ✅ include updateContentScale
+  }, [updateContentScale]); // include updateContentScale
 
   useEffect(() => {
     // call once safely
@@ -193,7 +193,7 @@ if(isDesktop && windowHeight < 705) {
   };
 
   const handlePrev = (animateVinyl = true) => {
-    // 🔊 play button sound
+    // play button sound
     if (animateVinyl && spinPrevRef.current) {
         spinPrevRef.current.currentTime = 0;
         spinPrevRef.current.play();
@@ -252,7 +252,7 @@ if(isDesktop && windowHeight < 705) {
     if (delta > 180) delta -= 360;
     if (delta < -180) delta += 360;
 
-    // 🔊 Scratch sounds with feedback fix
+    // Scratch sounds with feedback fix
     if (Math.abs(delta) > 2) {
       if (delta > 0 && scratchCWRef.current) {
         const audio = scratchCWRef.current;
@@ -331,9 +331,7 @@ if(isDesktop && windowHeight < 705) {
     // >
 
     // this was working
-    <div
-    className="flex flex-col items-center gap-6 p-4 "
-  >
+    <div className="flex flex-col items-center gap-6 p-4 ">
       {/* Release card wrapper */}
       <div
         className="flex flex-col items-center"
